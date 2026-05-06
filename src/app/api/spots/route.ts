@@ -5,7 +5,7 @@ import type { Spot } from "@/types";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const rateLimited = checkRateLimit(request, "spots:read", 60);
+  const rateLimited = checkRateLimit(request, "spots:read", 30);
   if (rateLimited) return rateLimited;
 
   try {
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const rateLimited = checkRateLimit(request, "spots:write", 10);
+  const rateLimited = checkRateLimit(request, "spots:write", 5);
   if (rateLimited) return rateLimited;
 
   try {
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
-  const rateLimited = checkRateLimit(request, "spots:write", 10);
+  const rateLimited = checkRateLimit(request, "spots:write", 5);
   if (rateLimited) return rateLimited;
 
   try {
@@ -46,7 +46,7 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const rateLimited = checkRateLimit(request, "spots:write", 10);
+  const rateLimited = checkRateLimit(request, "spots:write", 5);
   if (rateLimited) return rateLimited;
 
   try {

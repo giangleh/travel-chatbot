@@ -7,7 +7,7 @@ import { google } from "@ai-sdk/google";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
-  const rateLimited = checkRateLimit(request, "chat", 20);
+  const rateLimited = checkRateLimit(request, "chat", 10, 60_000);
   if (rateLimited) return rateLimited;
 
   try {
