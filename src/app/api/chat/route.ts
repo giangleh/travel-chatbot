@@ -1,7 +1,8 @@
 import { fetchAllSpots } from "@/lib/airtable";
-import { buildSystemPrompt, streamChat, validateInput } from "@/lib/claude";
+import { buildSystemPrompt, validateInput } from "@/lib/claude";
 import { checkRateLimit } from "@/lib/rate-limit";
-import type { Message } from "@/types";
+import { streamText } from "ai";
+import { google } from "@ai-sdk/google";
 
 export const dynamic = "force-dynamic";
 
@@ -10,12 +11,10 @@ export async function POST(request: Request) {
   if (rateLimited) return rateLimited;
 
   try {
-    const { message, history } = (await request.json()) as {
-      message: string;
-      history: Message[];
-    };
+    const { messages } = await request.json();
 
-    const sanitized = validateInput(message);
+    const lastMessage = messages[messages.length - 1];
+    const sanitized = validateInput(lastMessage.content);
     if (!sanitized) {
       return Response.json({ error: "Empty message" }, { status: 400 });
     }
@@ -23,12 +22,13 @@ export async function POST(request: Request) {
     const spots = await fetchAllSpots();
     const systemPrompt = buildSystemPrompt(spots);
 
-    const messages: Message[] = [
-      ...history.slice(-20),
-      { role: "user", content: sanitized },
-    ];
+    const result = streamText({
+      model: google("gemini-2.0-flash"),
+      system: systemPrompt,
+      messages: messages.slice(-20),
+      maxTokens: 2048,
+    });
 
-    const result = streamChat(systemPrompt, messages);
     return result.toDataStreamResponse();
   } catch (error) {
     console.error("Chat API error:", error);
