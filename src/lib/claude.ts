@@ -1,5 +1,5 @@
 import { streamText } from "ai";
-import { anthropic } from "@ai-sdk/anthropic";
+import { google } from "@ai-sdk/google";
 import type { Spot, Message } from "@/types";
 
 export function buildSystemPrompt(spots: Spot[]): string {
@@ -48,7 +48,7 @@ export function streamChat(systemPrompt: string, messages: Message[]) {
   }));
 
   return streamText({
-    model: anthropic("claude-sonnet-4-20250514"),
+    model: google("gemini-2.0-flash"),
     system: systemPrompt,
     messages: formattedMessages,
     maxTokens: 2048,

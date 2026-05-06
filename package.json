@@ -11,7 +11,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "1.2.12",
+    "@ai-sdk/google": "1.2.7",
     "@vis.gl/react-google-maps": "1.5.2",
     "ai": "4.3.16",
     "airtable": "0.12.2",
