@@ -14,17 +14,14 @@ interface SpotInfo {
 }
 
 function mapsUrl(name: string): string {
-  const q = encodeURIComponent(`${name} Tokyo Japan`);
-  return `https://www.google.com/maps/search/?api=1&query=${q}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} Tokyo Japan`)}`;
 }
 
 function tryParseJSON(content: string): { text: string; locations: SpotInfo[] } | null {
   try {
     const parsed = JSON.parse(content);
     if (parsed.text && Array.isArray(parsed.locations)) return parsed;
-  } catch {
-    // not JSON
-  }
+  } catch { /* not JSON */ }
   return null;
 }
 
@@ -33,13 +30,14 @@ function extractSpots(text: string): { intro: string; spots: SpotInfo[] } {
   const spots: SpotInfo[] = [];
   const introLines: string[] = [];
   let currentSpot: Partial<SpotInfo> | null = null;
+  let foundFirstSpot = false;
 
   for (const line of lines) {
-    // Match numbered items like "1.  **Viron Shibuya** (Bakery)"
     const spotMatch = line.match(/^\d+\.\s+\*\*(.+?)\*\*\s*\((.+?)\)/);
     if (spotMatch) {
       if (currentSpot?.name) spots.push(currentSpot as SpotInfo);
       currentSpot = { name: spotMatch[1], category: spotMatch[2], whatToTry: "", hours: "", rating: 0, station: "", walkTime: 0 };
+      foundFirstSpot = true;
       continue;
     }
 
@@ -49,17 +47,22 @@ function extractSpots(text: string): { intro: string; spots: SpotInfo[] } {
       const ratingMatch = line.match(/Rating[:\*]*\s*⭐?([\d.]+)/i);
       const walkMatch = line.match(/Walk[:\*]*\s*(\d+)\s*min\s*from\s*(.+)/i);
 
-      if (tryMatch) currentSpot.whatToTry = tryMatch[1].trim();
-      else if (hoursMatch) currentSpot.hours = hoursMatch[1].trim();
+      if (tryMatch) currentSpot.whatToTry = tryMatch[1].replace(/\*/g, "").trim();
+      else if (hoursMatch) currentSpot.hours = hoursMatch[1].replace(/\*/g, "").trim();
       else if (ratingMatch) currentSpot.rating = parseFloat(ratingMatch[1]);
-      else if (walkMatch) { currentSpot.walkTime = parseInt(walkMatch[1]); currentSpot.station = walkMatch[2].replace(/\s*station\s*/i, "").trim(); }
-    } else {
+      else if (walkMatch) { currentSpot.walkTime = parseInt(walkMatch[1]); currentSpot.station = walkMatch[2].replace(/\*/g, "").replace(/station/i, "").trim(); }
+      // Section headers between spots
+      else if (line.match(/^\*\*.*\*\*$/) && !line.match(/What|Hours|Rating|Walk/i)) {
+        if (currentSpot?.name) spots.push(currentSpot as SpotInfo);
+        currentSpot = null;
+      }
+    } else if (!foundFirstSpot) {
       introLines.push(line);
     }
   }
   if (currentSpot?.name) spots.push(currentSpot as SpotInfo);
 
-  return { intro: introLines.join("\n").trim(), spots };
+  return { intro: introLines.join("\n").replace(/^#+\s*/gm, "").trim(), spots };
 }
 
 function SpotCard({ spot }: { spot: SpotInfo }) {
@@ -94,44 +97,12 @@ function SpotCard({ spot }: { spot: SpotInfo }) {
   );
 }
 
-function AssistantMessage({ content }: { content: string }) {
-  // Try JSON first
-  const json = tryParseJSON(content);
-  if (json) {
-    return (
-      <div className="space-y-3">
-        <p className="whitespace-pre-wrap text-sm">{json.text}</p>
-        {json.locations.length > 0 && (
-          <div className="grid gap-2">
-            {json.locations.map((spot) => (
-              <SpotCard key={spot.name} spot={spot} />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // Try extracting spots from markdown
-  const { intro, spots } = extractSpots(content);
-  if (spots.length > 0) {
-    return (
-      <div className="space-y-3">
-        {intro && <p className="whitespace-pre-wrap text-sm">{intro}</p>}
-        <div className="grid gap-2">
-          {spots.map((spot) => (
-            <SpotCard key={spot.name} spot={spot} />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  // Fallback: render as plain text
-  return <p className="whitespace-pre-wrap text-sm">{content}</p>;
+interface ChatMessagesProps {
+  messages: Message[];
+  completedIds: Set<string>;
 }
 
-export function ChatMessages({ messages }: { messages: Message[] }) {
+export function ChatMessages({ messages, completedIds }: ChatMessagesProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -140,28 +111,62 @@ export function ChatMessages({ messages }: { messages: Message[] }) {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-4" data-testid="chat-messages">
-      {messages.map((m) => (
-        <div
-          key={m.id}
-          className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-        >
+      {messages.map((m) => {
+        const isCompleted = m.role === "user" || completedIds.has(m.id);
+
+        return (
           <div
-            className={`max-w-[85%] rounded-2xl px-4 py-3 ${
-              m.role === "user"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-50 border border-gray-200 shadow-sm"
-            }`}
-            data-testid={`message-${m.role}`}
+            key={m.id}
+            className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
           >
-            {m.role === "assistant" ? (
-              <AssistantMessage content={m.content} />
-            ) : (
-              <p className="whitespace-pre-wrap text-sm">{m.content}</p>
-            )}
+            <div
+              className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                m.role === "user"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-50 border border-gray-200 shadow-sm"
+              }`}
+              data-testid={`message-${m.role}`}
+            >
+              {m.role === "assistant" && isCompleted ? (
+                <FormattedResponse content={m.content} />
+              ) : (
+                <p className="whitespace-pre-wrap text-sm">{m.content}</p>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
       <div ref={bottomRef} />
     </div>
   );
+}
+
+function FormattedResponse({ content }: { content: string }) {
+  const json = tryParseJSON(content);
+  if (json) {
+    return (
+      <div className="space-y-3">
+        <p className="whitespace-pre-wrap text-sm">{json.text}</p>
+        {json.locations.length > 0 && (
+          <div className="grid gap-2">
+            {json.locations.map((spot) => <SpotCard key={spot.name} spot={spot} />)}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  const { intro, spots } = extractSpots(content);
+  if (spots.length > 0) {
+    return (
+      <div className="space-y-3">
+        {intro && <p className="whitespace-pre-wrap text-sm">{intro}</p>}
+        <div className="grid gap-2">
+          {spots.map((spot) => <SpotCard key={spot.name} spot={spot} />)}
+        </div>
+      </div>
+    );
+  }
+
+  return <p className="whitespace-pre-wrap text-sm">{content}</p>;
 }

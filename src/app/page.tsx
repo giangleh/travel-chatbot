@@ -23,10 +23,12 @@ const INITIAL_SUGGESTIONS = [
 export default function ChatPage() {
   const [mapSpots, setMapSpots] = useState<Spot[]>([]);
   const [showMap, setShowMap] = useState(false);
+  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     api: "/api/chat",
     onFinish: (message) => {
+      setCompletedIds((prev) => new Set(prev).add(message.id));
       try {
         const parsed = JSON.parse(message.content);
         if (parsed.locations?.length > 0) {
@@ -56,7 +58,7 @@ export default function ChatPage() {
 
       <div className="flex-1 overflow-hidden flex flex-col md:flex-row">
         <div className="flex-1 flex flex-col overflow-hidden">
-          <ChatMessages messages={messages} />
+          <ChatMessages messages={messages} completedIds={completedIds} />
 
           {messages.length === 0 && (
             <div className="px-4 pb-2">
