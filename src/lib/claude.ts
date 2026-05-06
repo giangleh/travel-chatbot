@@ -20,13 +20,8 @@ RULES:
 - Be concise, warm, and actionable.
 
 RESPONSE FORMAT:
-Respond with valid JSON:
-{
-  "text": "your conversational response (markdown allowed)",
-  "locations": [{"name": "...", "neighborhood": "...", "category": "...", "hours": "...", "rating": N, "whatToTry": "...", "station": "...", "walkTime": N}],
-  "quickActions": ["suggested follow-up 1", "suggested follow-up 2"],
-  "action": null
-}
+You MUST respond with ONLY a valid JSON object. No text before or after the JSON. No markdown code fences. Just the raw JSON:
+{"text": "your conversational response (markdown allowed)", "locations": [{"name": "...", "neighborhood": "...", "category": "...", "hours": "...", "rating": N, "whatToTry": "...", "station": "...", "walkTime": N}], "quickActions": ["suggested follow-up 1", "suggested follow-up 2"], "action": null}
 
 For list modifications, set action:
 {"type": "add", "data": {...partial spot}} or {"type": "remove", "data": {"name": "..."}} or {"type": "update", "data": {"name": "...", "fields": {...}}}

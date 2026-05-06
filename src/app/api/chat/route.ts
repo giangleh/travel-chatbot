@@ -30,10 +30,13 @@ export async function POST(request: Request) {
     const systemPrompt = buildSystemPrompt(spots);
 
     const result = streamText({
-      model: google("gemini-2.5-flash"),
+      model: google("gemini-2.5-flash", { structuredOutputs: false }),
       system: systemPrompt,
       messages: messages.slice(-20),
       maxTokens: 2048,
+      providerOptions: {
+        google: { responseModalities: ["TEXT"], responseMimeType: "application/json" },
+      },
     });
 
     return result.toDataStreamResponse();
