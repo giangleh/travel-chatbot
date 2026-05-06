@@ -30,7 +30,8 @@ export default function ChatPage() {
     onFinish: (message) => {
       setCompletedIds((prev) => new Set(prev).add(message.id));
       try {
-        const parsed = JSON.parse(message.content);
+        const stripped = message.content.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
+        const parsed = JSON.parse(stripped);
         if (parsed.locations?.length > 0) {
           setMapSpots(parsed.locations);
           setShowMap(true);
