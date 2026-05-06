@@ -58,7 +58,7 @@ function SpotCard({ spot }: { spot: SpotInfo }) {
   );
 }
 
-function AssistantMessage({ content }: { content: string }) {
+function AssistantMessage({ content, isStreaming }: { content: string; isStreaming: boolean }) {
   const parsed = tryParseJSON(content);
 
   if (parsed) {
@@ -76,11 +76,30 @@ function AssistantMessage({ content }: { content: string }) {
     );
   }
 
-  // Still streaming or not JSON - show raw text
+  // Still streaming - show typing indicator instead of raw JSON
+  if (isStreaming) {
+    return (
+      <div className="flex items-center gap-1 py-1">
+        <span className="text-sm text-gray-500">Thinking</span>
+        <span className="flex gap-0.5">
+          <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+          <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+          <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+        </span>
+      </div>
+    );
+  }
+
+  // Completed but not JSON - show as plain text
   return <p className="whitespace-pre-wrap text-sm">{content}</p>;
 }
 
-export function ChatMessages({ messages }: { messages: Message[] }) {
+interface ChatMessagesProps {
+  messages: Message[];
+  isLoading?: boolean;
+}
+
+export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -89,27 +108,32 @@ export function ChatMessages({ messages }: { messages: Message[] }) {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-4" data-testid="chat-messages">
-      {messages.map((m) => (
-        <div
-          key={m.id}
-          className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-        >
+      {messages.map((m, i) => {
+        const isLastAssistant = m.role === "assistant" && i === messages.length - 1;
+        const isStreaming = isLastAssistant && !!isLoading;
+
+        return (
           <div
-            className={`max-w-[85%] rounded-2xl px-4 py-3 ${
-              m.role === "user"
-                ? "bg-blue-600 text-white"
-                : "bg-gray-50 border border-gray-200 shadow-sm"
-            }`}
-            data-testid={`message-${m.role}`}
+            key={m.id}
+            className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
           >
-            {m.role === "assistant" ? (
-              <AssistantMessage content={m.content} />
-            ) : (
-              <p className="whitespace-pre-wrap text-sm">{m.content}</p>
-            )}
+            <div
+              className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                m.role === "user"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-50 border border-gray-200 shadow-sm"
+              }`}
+              data-testid={`message-${m.role}`}
+            >
+              {m.role === "assistant" ? (
+                <AssistantMessage content={m.content} isStreaming={isStreaming} />
+              ) : (
+                <p className="whitespace-pre-wrap text-sm">{m.content}</p>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
       <div ref={bottomRef} />
     </div>
   );

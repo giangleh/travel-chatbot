@@ -33,7 +33,7 @@ export default function ChatPage() {
       </header>
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <ChatMessages messages={messages} />
+        <ChatMessages messages={messages} isLoading={isLoading} />
 
         {messages.length === 0 && (
           <div className="px-4 pb-2">
