@@ -23,21 +23,18 @@ const INITIAL_SUGGESTIONS = [
 export default function ChatPage() {
   const [mapSpots, setMapSpots] = useState<Spot[]>([]);
   const [showMap, setShowMap] = useState(false);
-  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     api: "/api/chat",
     onFinish: (message) => {
-      setCompletedIds((prev) => new Set(prev).add(message.id));
       try {
-        const stripped = message.content.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
-        const parsed = JSON.parse(stripped);
+        const parsed = JSON.parse(message.content);
         if (parsed.locations?.length > 0) {
           setMapSpots(parsed.locations);
           setShowMap(true);
         }
       } catch {
-        // Non-JSON response, no map update needed
+        // Non-JSON response
       }
     },
   });
@@ -59,7 +56,7 @@ export default function ChatPage() {
 
       <div className="flex-1 overflow-hidden flex flex-col md:flex-row">
         <div className="flex-1 flex flex-col overflow-hidden">
-          <ChatMessages messages={messages} completedIds={completedIds} />
+          <ChatMessages messages={messages} />
 
           {messages.length === 0 && (
             <div className="px-4 pb-2">
