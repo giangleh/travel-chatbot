@@ -1,0 +1,37 @@
+{
+  "name": "travel-chatbot",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "1.2.12",
+    "@vis.gl/react-google-maps": "1.5.2",
+    "ai": "4.3.16",
+    "airtable": "0.12.2",
+    "next": "14.2.29",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/react": "16.3.0",
+    "@types/node": "20.17.50",
+    "@types/react": "18.3.21",
+    "@types/react-dom": "18.3.7",
+    "autoprefixer": "10.4.21",
+    "eslint": "8.57.1",
+    "eslint-config-next": "14.2.29",
+    "fast-check": "3.23.2",
+    "postcss": "8.5.3",
+    "prettier": "3.5.3",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.3",
+    "vitest": "3.1.3"
+  }
+}
