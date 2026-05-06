@@ -12,6 +12,12 @@ let cache: { data: Spot[]; timestamp: number } | null = null;
 const TTL = 60_000;
 
 function mapRecord(record: Airtable.Record<Airtable.FieldSet>): Spot {
+  const stationWalk = (record.get("Station Walk Time") as string) || "";
+  const [station, walkPart] = stationWalk.includes(",")
+    ? stationWalk.split(",").map((s) => s.trim())
+    : [stationWalk, "0"];
+  const walkTime = parseInt(walkPart) || 0;
+
   return {
     id: record.id,
     name: (record.get("Name") as string) || "",
@@ -20,8 +26,8 @@ function mapRecord(record: Airtable.Record<Airtable.FieldSet>): Spot {
     hours: (record.get("Hours") as string) || "",
     rating: (record.get("Rating") as number) || 0,
     whatToTry: (record.get("What to Try") as string) || "",
-    station: (record.get("Station") as string) || "",
-    walkTime: (record.get("Walk Time") as number) || 0,
+    station,
+    walkTime,
   };
 }
 
