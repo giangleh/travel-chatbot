@@ -1,6 +1,5 @@
 "use client";
 
-import type { Message } from "ai";
 import { useEffect, useRef } from "react";
 
 interface SpotInfo {
@@ -14,15 +13,21 @@ interface SpotInfo {
   walkTime: number;
 }
 
+interface ChatMessage {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+}
+
 function mapsUrl(name: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name} Tokyo Japan`)}`;
 }
 
-function tryParseJSON(content: string): { text: string; locations: SpotInfo[] } | null {
+function tryParseJSON(content: string): { text: string; locations?: SpotInfo[] } | null {
   try {
     const parsed = JSON.parse(content);
     if (parsed.text) return parsed;
-  } catch { /* incomplete or not JSON */ }
+  } catch { /* not JSON */ }
   return null;
 }
 
@@ -58,14 +63,14 @@ function SpotCard({ spot }: { spot: SpotInfo }) {
   );
 }
 
-function AssistantMessage({ content, isStreaming }: { content: string; isStreaming: boolean }) {
+function AssistantMessage({ content }: { content: string }) {
   const parsed = tryParseJSON(content);
 
   if (parsed) {
     return (
       <div className="space-y-3">
         <p className="whitespace-pre-wrap text-sm">{parsed.text}</p>
-        {parsed.locations?.length > 0 && (
+        {parsed.locations && parsed.locations.length > 0 && (
           <div className="grid gap-2">
             {parsed.locations.map((spot) => (
               <SpotCard key={spot.name} spot={spot} />
@@ -76,26 +81,28 @@ function AssistantMessage({ content, isStreaming }: { content: string; isStreami
     );
   }
 
-  // Still streaming - show typing indicator instead of raw JSON
-  if (isStreaming) {
-    return (
-      <div className="flex items-center gap-1 py-1">
-        <span className="text-sm text-gray-500">Thinking</span>
-        <span className="flex gap-0.5">
-          <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-          <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-          <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
-        </span>
-      </div>
-    );
-  }
-
-  // Completed but not JSON - show as plain text
   return <p className="whitespace-pre-wrap text-sm">{content}</p>;
 }
 
+function LoadingIndicator() {
+  return (
+    <div className="flex justify-start">
+      <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-gray-50 border border-gray-200 shadow-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-500">Planning your trip</span>
+          <span className="flex gap-0.5">
+            <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+            <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+            <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 interface ChatMessagesProps {
-  messages: Message[];
+  messages: ChatMessage[];
   isLoading?: boolean;
 }
 
@@ -104,36 +111,32 @@ export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isLoading]);
 
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-4" data-testid="chat-messages">
-      {messages.map((m, i) => {
-        const isLastAssistant = m.role === "assistant" && i === messages.length - 1;
-        const isStreaming = isLastAssistant && !!isLoading;
-
-        return (
+      {messages.map((m) => (
+        <div
+          key={m.id}
+          className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+        >
           <div
-            key={m.id}
-            className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+            className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+              m.role === "user"
+                ? "bg-blue-600 text-white"
+                : "bg-gray-50 border border-gray-200 shadow-sm"
+            }`}
+            data-testid={`message-${m.role}`}
           >
-            <div
-              className={`max-w-[85%] rounded-2xl px-4 py-3 ${
-                m.role === "user"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-50 border border-gray-200 shadow-sm"
-              }`}
-              data-testid={`message-${m.role}`}
-            >
-              {m.role === "assistant" ? (
-                <AssistantMessage content={m.content} isStreaming={isStreaming} />
-              ) : (
-                <p className="whitespace-pre-wrap text-sm">{m.content}</p>
-              )}
-            </div>
+            {m.role === "assistant" ? (
+              <AssistantMessage content={m.content} />
+            ) : (
+              <p className="whitespace-pre-wrap text-sm">{m.content}</p>
+            )}
           </div>
-        );
-      })}
+        </div>
+      ))}
+      {isLoading && <LoadingIndicator />}
       <div ref={bottomRef} />
     </div>
   );

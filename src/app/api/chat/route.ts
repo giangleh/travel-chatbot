@@ -1,7 +1,7 @@
 import { fetchAllSpots } from "@/lib/airtable";
 import { buildSystemPrompt, validateInput } from "@/lib/claude";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { streamText } from "ai";
+import { generateText } from "ai";
 import { google } from "@ai-sdk/google";
 
 export const dynamic = "force-dynamic";
@@ -29,17 +29,17 @@ export async function POST(request: Request) {
 
     const systemPrompt = buildSystemPrompt(spots);
 
-    const result = streamText({
+    const { text } = await generateText({
       model: google("gemini-2.5-flash", { structuredOutputs: false }),
       system: systemPrompt,
-      messages: messages.slice(-20),
+      messages: messages.slice(-10),
       maxTokens: 2048,
       providerOptions: {
         google: { responseModalities: ["TEXT"], responseMimeType: "application/json" },
       },
     });
 
-    return result.toDataStreamResponse();
+    return Response.json({ role: "assistant", content: text });
   } catch (error) {
     console.error("Chat API error (Gemini):", error);
     return Response.json(

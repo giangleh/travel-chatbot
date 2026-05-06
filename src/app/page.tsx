@@ -1,9 +1,15 @@
 "use client";
 
-import { useChat } from "ai/react";
+import { useState } from "react";
 import { ChatMessages } from "@/components/ChatMessages";
 import { ChatInput } from "@/components/ChatInput";
 import { QuickActions } from "@/components/QuickActions";
+
+interface ChatMessage {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+}
 
 const INITIAL_SUGGESTIONS = [
   "Plan my day in Shibuya",
@@ -13,16 +19,41 @@ const INITIAL_SUGGESTIONS = [
 ];
 
 export default function ChatPage() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: "/api/chat",
-  });
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const sendQuickAction = (text: string) => {
-    handleInputChange({ target: { value: text } } as React.ChangeEvent<HTMLInputElement>);
-    setTimeout(() => {
-      const form = document.querySelector("form");
-      form?.requestSubmit();
-    }, 0);
+  const sendMessage = async (text: string) => {
+    if (!text.trim() || isLoading) return;
+
+    const userMsg: ChatMessage = { id: Date.now().toString(), role: "user", content: text.trim() };
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
+    setInput("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages.map((m) => ({ role: m.role, content: m.content })) }),
+      });
+
+      if (!res.ok) throw new Error("Failed");
+
+      const data = await res.json();
+      const assistantMsg: ChatMessage = { id: (Date.now() + 1).toString(), role: "assistant", content: data.content };
+      setMessages([...newMessages, assistantMsg]);
+    } catch {
+      setMessages([...newMessages, { id: (Date.now() + 1).toString(), role: "assistant", content: "Sorry, something went wrong. Please try again." }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendMessage(input);
   };
 
   return (
@@ -37,13 +68,13 @@ export default function ChatPage() {
 
         {messages.length === 0 && (
           <div className="px-4 pb-2">
-            <QuickActions suggestions={INITIAL_SUGGESTIONS} onSelect={sendQuickAction} />
+            <QuickActions suggestions={INITIAL_SUGGESTIONS} onSelect={sendMessage} />
           </div>
         )}
 
         <ChatInput
           input={input}
-          onChange={handleInputChange}
+          onChange={(e) => setInput(e.target.value)}
           onSubmit={handleSubmit}
           isLoading={isLoading}
         />
