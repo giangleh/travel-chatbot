@@ -19,7 +19,9 @@ function mapsUrl(name: string): string {
 
 function tryParseJSON(content: string): { text: string; locations: SpotInfo[] } | null {
   try {
-    const parsed = JSON.parse(content);
+    // Strip markdown code fences like ```json ... ```
+    const stripped = content.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
+    const parsed = JSON.parse(stripped);
     if (parsed.text && Array.isArray(parsed.locations)) return parsed;
   } catch { /* not JSON */ }
   return null;
