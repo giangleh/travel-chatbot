@@ -19,11 +19,26 @@ function mapsUrl(name: string): string {
 
 function tryParseJSON(content: string): { text: string; locations: SpotInfo[] } | null {
   try {
-    // Strip markdown code fences like ```json ... ```
-    const stripped = content.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
-    const parsed = JSON.parse(stripped);
+    // Try direct parse first (pure JSON response)
+    const parsed = JSON.parse(content);
     if (parsed.text && Array.isArray(parsed.locations)) return parsed;
-  } catch { /* not JSON */ }
+  } catch { /* not pure JSON */ }
+  try {
+    // Extract JSON from code fence anywhere in the response
+    const match = content.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+    if (match) {
+      const parsed = JSON.parse(match[1]);
+      if (parsed.text && Array.isArray(parsed.locations)) return parsed;
+    }
+  } catch { /* no valid JSON in code fence */ }
+  try {
+    // Try finding a JSON object starting with {"text"
+    const idx = content.indexOf('{"text"');
+    if (idx >= 0) {
+      const parsed = JSON.parse(content.slice(idx));
+      if (parsed.text && Array.isArray(parsed.locations)) return parsed;
+    }
+  } catch { /* not valid */ }
   return null;
 }
 
