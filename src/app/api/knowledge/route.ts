@@ -1,17 +1,20 @@
-import { readFileSync } from "fs";
-import { join } from "path";
+import masterList from "../../../../master-list.md";
+import instructions from "../../../../conan-agent-instructions.md";
+
+const files: Record<string, string> = {
+  "master-list.md": masterList,
+  "conan-agent-instructions.md": instructions,
+};
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const file = searchParams.get("file");
 
-  const allowed = ["master-list.md", "conan-agent-instructions.md"];
-  if (!file || !allowed.includes(file)) {
+  if (!file || !files[file]) {
     return Response.json({ error: "Not found" }, { status: 404 });
   }
 
-  const content = readFileSync(join(process.cwd(), file), "utf-8");
-  return new Response(content, {
+  return new Response(files[file], {
     headers: { "Content-Type": "text/markdown", "Access-Control-Allow-Origin": "*" },
   });
 }
