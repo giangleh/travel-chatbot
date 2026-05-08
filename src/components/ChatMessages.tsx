@@ -27,7 +27,20 @@ function tryParseJSON(content: string): { text: string; locations?: SpotInfo[] }
   try {
     const parsed = JSON.parse(content);
     if (parsed.text) return parsed;
-  } catch { /* not JSON */ }
+  } catch {
+    // Try to salvage truncated JSON - extract text and locations
+    const textMatch = content.match(/"text"\s*:\s*"((?:[^"\\]|\\.)*)"/);
+    if (textMatch) {
+      const text = textMatch[1].replace(/\\n/g, "\n").replace(/\\"/g, '"');
+      const locations: SpotInfo[] = [];
+      const locRegex = /\{"name"\s*:\s*"([^"]+)"[^}]*"neighborhood"\s*:\s*"([^"]+)"[^}]*"category"\s*:\s*"([^"]+)"[^}]*"hours"\s*:\s*"([^"]*)"[^}]*"rating"\s*:\s*([0-9.]+)[^}]*"whatToTry"\s*:\s*"([^"]*)"[^}]*"station"\s*:\s*"([^"]*)"[^}]*"walkTime"\s*:\s*([0-9]+)/g;
+      let m;
+      while ((m = locRegex.exec(content)) !== null) {
+        locations.push({ name: m[1], neighborhood: m[2], category: m[3], hours: m[4], rating: parseFloat(m[5]), whatToTry: m[6], station: m[7], walkTime: parseInt(m[8]) });
+      }
+      return { text, locations };
+    }
+  }
   return null;
 }
 

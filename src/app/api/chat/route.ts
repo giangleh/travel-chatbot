@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       model: google("gemini-2.5-flash", { structuredOutputs: false }),
       system: systemPrompt,
       messages: messages.slice(-10),
-      maxTokens: 2048,
+      maxTokens: 8192,
       providerOptions: {
         google: { responseModalities: ["TEXT"], responseMimeType: "application/json" },
       },
