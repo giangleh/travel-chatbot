@@ -4,16 +4,30 @@ import type { Spot } from "@/types";
 
 export const dynamic = "force-dynamic";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: corsHeaders });
+}
+
 export async function GET(request: Request) {
   const rateLimited = checkRateLimit(request, "spots:read", 30);
   if (rateLimited) return rateLimited;
 
   try {
     const spots = await fetchAllSpots();
-    return Response.json(spots);
+    const enriched = spots.map((s) => ({
+      ...s,
+      mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.name} ${s.neighborhood} Tokyo Japan`)}`,
+    }));
+    return Response.json(enriched, { headers: corsHeaders });
   } catch (error) {
     console.error("Spots GET error:", error);
-    return Response.json({ error: "Failed to fetch spots" }, { status: 500 });
+    return Response.json({ error: "Failed to fetch spots" }, { status: 500, headers: corsHeaders });
   }
 }
 

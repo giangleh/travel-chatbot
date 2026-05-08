@@ -1,0 +1,47 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Conan Tokyo Travel API",
+    "description": "Curated Tokyo travel spots with ratings, hours, and Google Maps links. Use this to recommend spots, plan itineraries, and help users explore Tokyo.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    { "url": "https://conan-travel.vercel.app" }
+  ],
+  "paths": {
+    "/api/spots": {
+      "get": {
+        "operationId": "getSpots",
+        "summary": "Get all curated Tokyo spots",
+        "description": "Returns the full master list of curated Tokyo spots including name, neighborhood, category, hours, rating, what to try, nearest station, walk time, and Google Maps link.",
+        "responses": {
+          "200": {
+            "description": "List of spots",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "name": { "type": "string" },
+                      "neighborhood": { "type": "string" },
+                      "category": { "type": "string" },
+                      "hours": { "type": "string" },
+                      "rating": { "type": "number" },
+                      "whatToTry": { "type": "string" },
+                      "station": { "type": "string" },
+                      "walkTime": { "type": "integer" },
+                      "mapsUrl": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
