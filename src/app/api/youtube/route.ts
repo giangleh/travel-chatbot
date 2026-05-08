@@ -31,10 +31,9 @@ export async function POST(request: Request) {
       messages: [
         {
           role: "user",
-          content: [
-            {
-              type: "text",
-              text: `Watch this YouTube video and extract ALL locations/spots mentioned in the video or its description.
+          content: `Watch this YouTube video: ${url}
+
+Extract ALL locations/spots mentioned in the video content, narration, or description.
 
 For each location, extract:
 - name (exact name of the place)
@@ -47,16 +46,9 @@ For each location, extract:
 - station (nearest train station if mentioned, otherwise empty string)
 - walkTime (minutes from station if mentioned, otherwise 0)
 
-Respond with ONLY valid JSON: {"spots": [...], "videoTitle": "...", "summary": "brief summary of the video"}
+Respond with ONLY valid JSON: {"spots": [...], "videoTitle": "title of the video", "summary": "brief summary of the video content"}
 
 If no locations are found, return {"spots": [], "videoTitle": "...", "summary": "..."}`,
-            },
-            {
-              type: "file",
-              data: url,
-              mimeType: "video/mp4",
-            },
-          ],
         },
       ],
       maxTokens: 4096,
@@ -66,8 +58,26 @@ If no locations are found, return {"spots": [], "videoTitle": "...", "summary": 
     try {
       parsed = JSON.parse(text);
     } catch {
-      const jsonMatch = text.match(/\{[\s\S]*\}/);
-      parsed = jsonMatch ? JSON.parse(jsonMatch[0]) : { spots: [], videoTitle: "", summary: "Could not parse response" };
+      // Try to extract JSON from markdown code fences or partial response
+      const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+      try {
+        parsed = JSON.parse(cleaned);
+      } catch {
+        // Last resort: try to find and fix truncated JSON
+        const jsonMatch = cleaned.match(/\{[\s\S]*"spots"\s*:\s*\[/);
+        if (jsonMatch) {
+          // Find all complete spot objects
+          const spotRegex = /\{[^{}]*"name"\s*:\s*"[^"]+[^{}]*\}/g;
+          const spots = [...cleaned.matchAll(spotRegex)].map((m) => {
+            try { return JSON.parse(m[0]); } catch { return null; }
+          }).filter(Boolean);
+          const titleMatch = cleaned.match(/"videoTitle"\s*:\s*"([^"]*)"/);
+          const summaryMatch = cleaned.match(/"summary"\s*:\s*"([^"]*)"/);
+          parsed = { spots, videoTitle: titleMatch?.[1] || "", summary: summaryMatch?.[1] || "" };
+        } else {
+          parsed = { spots: [], videoTitle: "", summary: "Could not parse response" };
+        }
+      }
     }
 
     // Mark duplicates
