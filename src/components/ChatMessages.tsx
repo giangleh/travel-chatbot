@@ -31,8 +31,16 @@ function tryParseJSON(content: string): { text: string; locations?: SpotInfo[] }
   return null;
 }
 
+function categoryEmoji(cat: string): string {
+  const map: Record<string, string> = {
+    Coffee: "☕", Bakery: "🥐", Sight: "🏯", Sightseeing: "🗼", Camera: "📷",
+    Eyewear: "👓", Shopping: "🛍️", Jewelry: "💍", Park: "🌳", Shrine: "⛩️",
+    Temple: "🛕", Museum: "🖼️",
+  };
+  return map[cat] || "📍";
+}
+
 function SpotCard({ spot }: { spot: SpotInfo }) {
-  const photoQuery = encodeURIComponent(`${spot.name} ${spot.neighborhood} Tokyo`);
   return (
     <a
       href={mapsUrl(spot.name)}
@@ -40,24 +48,19 @@ function SpotCard({ spot }: { spot: SpotInfo }) {
       rel="noopener noreferrer"
       className="block border rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow"
     >
-      <img
-        src={`https://source.unsplash.com/400x200/?${photoQuery}`}
-        alt={spot.name}
-        className="w-full h-28 object-cover"
-        loading="lazy"
-      />
-      <div className="p-3">
-        <div className="flex justify-between items-start">
-          <div>
-            <h3 className="font-semibold text-sm text-gray-900">{spot.name}</h3>
-            <p className="text-xs text-gray-500">{spot.neighborhood} · {spot.category}</p>
-          </div>
-          {spot.rating > 0 && (
-            <span className="text-xs font-medium text-yellow-600">⭐ {spot.rating}</span>
-          )}
+      <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-3 py-2 flex items-center gap-2">
+        <span className="text-2xl">{categoryEmoji(spot.category)}</span>
+        <div>
+          <h3 className="font-semibold text-sm text-white">{spot.name}</h3>
+          <p className="text-xs text-blue-100">{spot.neighborhood} · {spot.category}</p>
         </div>
+        {spot.rating > 0 && (
+          <span className="ml-auto text-xs font-medium text-yellow-200">⭐ {spot.rating}</span>
+        )}
+      </div>
+      <div className="p-3">
         {(spot.hours || spot.walkTime > 0) && (
-          <p className="text-xs text-gray-600 mt-1">
+          <p className="text-xs text-gray-600">
             {spot.hours && <>🕐 {spot.hours}</>}
             {spot.hours && spot.walkTime > 0 && " · "}
             {spot.walkTime > 0 && <>🚶 {spot.walkTime} min from {spot.station}</>}
