@@ -32,33 +32,42 @@ function tryParseJSON(content: string): { text: string; locations?: SpotInfo[] }
 }
 
 function SpotCard({ spot }: { spot: SpotInfo }) {
+  const photoQuery = encodeURIComponent(`${spot.name} ${spot.neighborhood} Tokyo`);
   return (
     <a
       href={mapsUrl(spot.name)}
       target="_blank"
       rel="noopener noreferrer"
-      className="block border rounded-lg p-3 bg-white shadow-sm hover:shadow-md transition-shadow"
+      className="block border rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow"
     >
-      <div className="flex justify-between items-start">
-        <div>
-          <h3 className="font-semibold text-sm text-gray-900">{spot.name}</h3>
-          <p className="text-xs text-gray-500">{spot.neighborhood} · {spot.category}</p>
+      <img
+        src={`https://source.unsplash.com/400x200/?${photoQuery}`}
+        alt={spot.name}
+        className="w-full h-28 object-cover"
+        loading="lazy"
+      />
+      <div className="p-3">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="font-semibold text-sm text-gray-900">{spot.name}</h3>
+            <p className="text-xs text-gray-500">{spot.neighborhood} · {spot.category}</p>
+          </div>
+          {spot.rating > 0 && (
+            <span className="text-xs font-medium text-yellow-600">⭐ {spot.rating}</span>
+          )}
         </div>
-        {spot.rating > 0 && (
-          <span className="text-xs font-medium text-yellow-600">⭐ {spot.rating}</span>
+        {(spot.hours || spot.walkTime > 0) && (
+          <p className="text-xs text-gray-600 mt-1">
+            {spot.hours && <>🕐 {spot.hours}</>}
+            {spot.hours && spot.walkTime > 0 && " · "}
+            {spot.walkTime > 0 && <>🚶 {spot.walkTime} min from {spot.station}</>}
+          </p>
         )}
+        {spot.whatToTry && (
+          <p className="text-xs text-gray-700 mt-1 italic">💡 {spot.whatToTry}</p>
+        )}
+        <p className="text-xs text-blue-600 mt-2 font-medium">🗺️ Open in Google Maps →</p>
       </div>
-      {(spot.hours || spot.walkTime > 0) && (
-        <p className="text-xs text-gray-600 mt-1">
-          {spot.hours && <>🕐 {spot.hours}</>}
-          {spot.hours && spot.walkTime > 0 && " · "}
-          {spot.walkTime > 0 && <>🚶 {spot.walkTime} min from {spot.station}</>}
-        </p>
-      )}
-      {spot.whatToTry && (
-        <p className="text-xs text-gray-700 mt-1 italic">💡 {spot.whatToTry}</p>
-      )}
-      <p className="text-xs text-blue-600 mt-2 font-medium">🗺️ Open in Google Maps →</p>
     </a>
   );
 }
