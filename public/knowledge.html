@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Conan Travel Agent - Knowledge Base</title></head>
+<head>
+<meta charset="UTF-8">
+<title>Conan Travel Agent - Knowledge Base</title>
+<style>
+body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; }
+.card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 12px 0; }
+.card h3 { margin: 0 0 8px; }
+.card p { margin: 4px 0; }
+.card a { color: #1a73e8; text-decoration: none; }
+.card a:hover { text-decoration: underline; }
+pre { background: #f5f5f5; padding: 16px; border-radius: 8px; white-space: pre-wrap; }
+</style>
+</head>
 <body>
 <h1>Agent Instructions</h1>
-<pre>
-# Conan — Tokyo Travel Agent
+<pre># Conan — Tokyo Travel Agent
 
 ## Role
 You are Conan, an expert Tokyo travel agent. You help users discover curated spots, plan itineraries, and get the most out of their Tokyo trip.
@@ -47,107 +58,772 @@ Bakery, Coffee, Camera, Eyewear, Jewelry, Sight, Sightseeing, Shopping, Shrine, 
 - Note spots that close early (before 18:00)
 </pre>
 <h1>Master List</h1>
-<pre>
-# Conan's Tokyo Master List
-
-| Name | Neighborhood | Category | Hours | Rating | What to Try | Station &amp; Walk Time |
-|------|-------------|----------|-------|--------|-------------|-------------------|
-| The City Bakery | Ginza | Bakery | 07:30-22:00 | 4.3 | Pretzel Croissants | Ginza, 4 min |
-| Senso-ji Temple | Asakusa | Sight | 06:00-17:00 | 4.7 | Fortune drawing (Omikuji) | Asakusa, 5 min |
-| Boulangerie l'Atelier de Meguro | Nakameguro | Bakery | 10:00-18:00 | 4.2 | Artisanal loafs | Nakameguro, 6 min |
-| White Glass Coffee | Aoyama | Coffee | 08:00-20:00 | 4.4 | Coffee with chocolate desserts | Omotesando, 5 min |
-| The Roastery by Nozy Coffee | Shibuya | Coffee | 10:00-20:00 | 4.5 | Espresso tonic and soft serve | Shibuya, 6 min |
-| Nakano Broadway | Nakano | Sight | 11:00-20:00 | 4.5 | Vintage watch/toy hunting | Nakano, 2 min |
-| Tokyo National Museum | Ueno | Sight | 09:30-17:00 | 4.7 | Japanese archaeology/art | Ueno, 10 min |
-| Deus Ex Machina | Harajuku | Coffee | 09:00-20:00 | 4.4 | Custom roast coffee | Harajuku, 7 min |
-| Coffee High Five | Nakano | Coffee | 11:00-19:00 | 4.4 | Dark roast espresso | Nakano, 5 min |
-| Sidewalk Stand | Nakameguro | Coffee | 09:00-21:00 | 4.4 | Hot sandwiches and latte | Nakameguro, 6 min |
-| Blue Bottle Coffee Shinjuku | Shinjuku | Coffee | 08:00-21:00 | 4.3 | New Orleans Iced Coffee | Shinjuku, 5 min |
-| Beams Men Shibuya | Shibuya | Sight | 11:00-20:00 | 4.4 | Curated lifestyle gear | Shibuya, 3 min |
-| Taro Okamoto Memorial Museum | Omotesando | Sight | 10:00-18:00 | 4.6 | Modern Japanese art | Omotesando, 7 min |
-| Kameju | Asakusa | Bakery | 10:00-19:00 | 4.6 | Dorayaki | Asakusa, 7 min |
-| Peltier Bakery | Ginza | Bakery | 10:00-20:00 | 4.2 | French-style pastries | Ginza, 4 min |
-| Ginza Six Rooftop | Ginza | Sight | 07:00-23:00 | 4.6 | Sky garden views | Ginza, 1 min |
-| Boul'Ange | Ginza | Bakery | 08:00-21:00 | 4.2 | Pistachio Croissants | Ginza, 3 min |
-| Sarutahiko Coffee | Ebisu | Coffee | 08:00-22:00 | 4.4 | Honey latte and seasonal blends | Ebisu, 2 min |
-| Tsutaya Books (T-Site) | Daikanyama | Shopping | 07:00-23:00 | 4.5 | Art books and magazine collection | Daikanyama, 5 min |
-| Map Camera | Shinjuku | Camera | 11:00-19:00 | 4.8 | Used Leica/Fujifilm | Shinjuku, 3 min |
-| Coffee Elementary School | Daikanyama | Coffee | 11:00-18:00 | 4.6 | Educational tasting flights | Daikanyama, 6 min |
-| Boul'Ange Harajuku | Harajuku | Bakery | 08:00-20:00 | 4.3 | Croissant variations | Harajuku, 5 min |
-| Onibus Coffee | Nakameguro | Coffee | 09:00-18:00 | 4.6 | Espresso by the tracks | Nakameguro, 3 min |
-| Unu Glanta | Shimokitazawa | Jewelry | 12:00-20:00 | 4.7 | Custom handcrafted ring made on-site in 10 min | Shimokitazawa, 1 min |
-| A.P.C. Surplus Daikanyama | Daikanyama | Sight | 12:00-20:00 | 4.3 | Archived French designs | Daikanyama, 6 min |
-| Nezu Museum | Aoyama | Sight | 10:00-17:00 | 4.8 | Traditional garden and tea house | Omotesando, 8 min |
-| Be a Good Neighbor | Sendagaya | Coffee | 09:00-18:00 | 4.4 | Hand-drip coffee and seasonal beans | Kitasando, 5 min |
-| Matsuda Store (Matsuya) | Ginza | Eyewear | 11:00-20:00 | 4.6 | Heritage engraved metal frames | Ginza, 5 min |
-| Iron Coffee | Setagaya | Coffee | 08:30-18:00 | 4.6 | Latte with almond milk | Sangenjaya, 8 min |
-| Brooklyn Roasting Company | Shimokitazawa | Coffee | 09:00-19:00 | 4.4 | Single origin drip | Shimokitazawa, 5 min |
-| Hotel Claska Gallery | Meguro | Sight | 11:00-19:00 | 4.6 | Japanese lifestyle goods | Meguro, 8 min |
-| Eyevan 7285 | Omotesando | Eyewear | 11:00-20:00 | 4.7 | Hexagonal frames | Omotesando, 5 min |
-| Switch Coffee Tokyo | Meguro | Coffee | 10:00-18:00 | 4.5 | Seasonal single-origin drip | Meguro, 5 min |
-| Eyevan Luxe Shibuya | Shibuya | Eyewear | 11:00-21:00 | 4.6 | Limited luxury collections | Shibuya, 4 min |
-| Viron Shibuya | Shibuya | Bakery | 09:00-21:00 | 4.6 | Baguette Retro | Shibuya, 5 min |
-| Starbucks Reserve Printemps | Ginza | Coffee | 07:30-22:30 | 4.4 | Reserve micro-blends | Ginza, 2 min |
-| About Life Coffee Brewers | Shibuya | Coffee | 08:00-18:00 | 4.4 | Onibus bean pour-over | Shibuya, 5 min |
-| Shibuya Sky | Shibuya | Sightseeing | 10:00-22:30 | 4.7 | Sunset views from the rooftop | Shibuya, direct access |
-| Higuma Doughnuts x Coffee Wrights | Omotesando | Bakery | 11:00-18:00 | 4.5 | Plain doughnut and flat white | Omotesando, 4 min |
-| Bonsai Coffee | Daikanyama | Coffee | 10:00-18:00 | 4.3 | Hand drip coffee | Daikanyama, 4 min |
-| Blue Bottle Aoyama | Aoyama | Coffee | 08:00-19:00 | 4.4 | Seasonal pour-over | Omotesando, 6 min |
-| Chora Eyewear | Nakameguro | Eyewear | 11:00-19:00 | 4.3 | Boutique curated brands | Nakameguro, 7 min |
-| Mame-zono | Nakano | Bakery | 10:00-19:00 | 4.3 | Kintsuba (bean cakes) | Nakano, 5 min |
-| Yard Coffee &amp; Craft Chocolate | Tennoji | Coffee | 10:00-18:00 | 4.6 | Single-origin coffee and artisan chocolate | Tennoji, 4 min |
-| Traveler's Factory | Nakameguro | Shopping | 12:00-20:00 (Closed Tue) | 4.7 | Customizable leather traveler's notebooks | Nakameguro, 3 min |
-| Daily Chico | Nakano | Bakery | 10:00-20:00 | 4.2 | 8-layer soft serve | Nakano, 4 min |
-| Yodobashi Camera West | Shinjuku | Camera | 09:30-22:00 | 4.5 | Camera accessories/straps | Shinjuku, 2 min |
-| SunnyHills | Omotesando | Bakery | 11:00-19:00 | 4.7 | Pineapple cake and tea (Kengo Kuma building) | Omotesando, 4 min |
-| Blinc Vase | Omotesando | Eyewear | 12:00-20:00 | 4.5 | Curated global eyewear | Omotesando, 4 min |
-| Bear Pond Espresso | Shimokitazawa | Coffee | 11:00-17:00 | 4.2 | The "Angel Stain" Espresso | Shimokitazawa, 4 min |
-| Streamer Coffee Company | Shibuya | Coffee | 08:00-20:00 | 4.4 | Streamer Latte (Latte Art) | Shibuya, 5 min |
-| Kamuro Eyewear | Ginza | Eyewear | 11:00-20:00 | 4.4 | Artistic colorful frames | Ginza, 4 min |
-| Light Up Coffee | Kichijoji | Coffee | 11:00-19:00 | 4.5 | Single-origin flight | Kichijoji, 5 min |
-| Little Nap Coffee Stand | Yoyogi | Coffee | 09:00-19:00 | 4.5 | Iced latte by Yoyogi Park | Yoyogi-koen, 5 min |
-| Koffee Mameya Kakeru | Kiyosumi-shirakawa | Coffee | 11:00-19:00 | 4.8 | Coffee tasting course (Reservations req) | Kiyosumi-shirakawa, 8 min |
-| Glitch Coffee &amp; Roasters | Ginza | Coffee | 09:00-19:00 | 4.7 | Single origin pour-over | Ginza, 3 min |
-| Coffee Supreme Tokyo | Shibuya | Coffee | 08:00-18:00 | 4.5 | Flat white and donuts | Shibuya, 8 min |
-| Ghibli Museum | Kichijoji | Sight | 10:00-18:00 | 4.9 | Film animation secrets — book tickets in advance | Mitaka, 10 min |
-| Shirohige's Cream Puff Factory | Shimokitazawa | Bakery | 11:00-18:00 | 4.7 | Totoro-shaped cream puffs | Shimokitazawa, 8 min |
-| Sawamura Bakery | Shinjuku | Bakery | 07:00-22:00 | 4.5 | Rustic sourdough | Shinjuku, 6 min |
-| Dominique Ansel Workshop | Omotesando | Bakery | 10:00-19:00 | 4.3 | DKA (Dominique's Kouign Amann) | Omotesando, 5 min |
-| Found MUJI Aoyama | Aoyama | Sight | 11:00-20:00 | 4.5 | Specialized lifestyle products | Omotesando, 4 min |
-| Turret Coffee | Ginza | Coffee | 07:00-18:00 | 4.6 | Turret Latte | Ginza, 4 min |
-| T-Site / Tsutaya Books | Daikanyama | Sight | 07:00-23:00 | 4.8 | Photography books/Design magazines | Daikanyama, 3 min |
-| Masunaga 1905 (Ginza) | Ginza | Eyewear | 11:00-20:00 | 4.8 | GMS series | Ginza, 2 min |
-| Passage Coffee | Mita | Coffee | 07:30-19:00 | 4.5 | AeroPress championship coffee | Mita, 3 min |
-| Matcha Passport | Shimokitazawa | Coffee | 11:00-19:00 | 4.4 | Matcha lattes and seasonal desserts | Shimokitazawa, 4 min |
-| Bunkaya Zakkaten | Omotesando | Sight | 11:00-19:00 | 4.5 | Quirky Japanese souvenirs | Omotesando, 3 min |
-| Jins Shibuya | Shibuya | Eyewear | 11:00-21:00 | 4.2 | Design collaborations | Shibuya, 3 min |
-| 999.9 Four Nines Spirit | Ginza | Eyewear | 11:00-20:00 | 4.7 | M-140 series; high-function hinges | Ginza, 3 min |
-| Itoya Ginza | Ginza | Shopping | 10:00-20:00 | 4.4 | Custom notebook creation | Ginza-itchome, 1 min |
-| Bonus Track | Shimokitazawa | Sight | 12:00-20:00 | 4.5 | Indie shops and live music venue | Shimokitazawa, 3 min |
-| Boulangerie Le Ressort | Kichijoji | Bakery | 11:00-19:00 | 4.5 | Pistachio stick | Kichijoji, 6 min |
-| Ameya Yokocho | Ueno | Sight | 10:00-20:00 | 4.3 | Street food market | Ueno, 2 min |
-| Shozo Coffee Store | Aoyama | Coffee | 09:30-18:00 | 4.5 | Scones and iced coffee | Omotesando, 7 min |
-| Center the Bakery | Ginza | Bakery | 09:00-18:00 | 4.5 | Shokupan tasting flight | Ginza, 5 min |
-| Kitazawa Hachiman Shrine | Shimokitazawa | Sight | 09:00-17:00 | 4.4 | Local shrine in residential streets | Shimokitazawa, 6 min |
-| Meiji Jingu Shrine | Harajuku | Sight | 05:00-18:00 | 4.8 | Forest walk to main shrine | Harajuku, 5 min |
-| Koffee Mameya | Aoyama | Coffee | 10:00-18:00 | 4.8 | Bean consultation | Omotesando, 5 min |
-| Princi | Daikanyama | Bakery | 08:00-22:00 | 4.5 | Focaccia barese | Daikanyama, 4 min |
-| Shinjuku Gyoen | Shinjuku | Park | 09:00-16:00/18:00 | 4.6 | Exploring the greenhouse | Shinjuku-gyoemmae, 5 min |
-| Masunaga 1905 | Omotesando | Eyewear | 11:00-20:00 | 4.8 | Chord series | Omotesando, 3 min |
-| Nikolai Bergmann Nomu | Harajuku | Coffee | 10:00-19:00 | 4.5 | Lunch among floral displays | Harajuku, 8 min |
-| Gontran Cherrier | Shibuya | Bakery | 07:30-20:00 | 4.4 | Curry bread | Shibuya, 6 min |
-| Globe Specs | Daikanyama | Eyewear | 11:00-20:00 | 4.9 | Anne et Valentin / Vintage | Daikanyama, 5 min |
-| Gotokuji Temple | Gotokuji | Sight | 06:00-17:00 | 4.6 | Maneki-neko (lucky cat) statues | Gotokuji, 5 min |
-| Kyu Asakura House | Daikanyama | Sightseeing | 10:00-18:00 (Tue-Sun) | 4.6 | Taisho-era architecture and garden stroll | Daikanyama, 5 min |
-| Traveler's Factory | Nakameguro | Sight | 12:00-20:00 | 4.8 | Custom notebooks | Nakameguro, 4 min |
-| Miyashita Park | Shibuya | Park | 08:00-23:00 | 4.3 | Rooftop bouldering or skating | Shibuya, 3 min |
-| Yanaka Ginza | Yanaka | Sight | 10:00-18:00 | 4.5 | Traditional street snacks | Nippori, 10 min |
-| Kayaba Coffee | Yanaka | Coffee | 08:00-18:00 | 4.6 | Egg sandwich | Nippori, 8 min |
-| Verve Coffee Roasters | Shinjuku | Coffee | 07:00-22:00 | 4.4 | Nitro Flash Brew | Shinjuku, 4 min |
-| Spiral Market | Aoyama | Sight | 11:00-20:00 | 4.4 | Modern Japanese stationery/gifts | Omotesando, 4 min |
-| Bread, Espresso &amp; | Omotesando | Bakery | 08:00-19:00 | 4.4 | French toast | Omotesando, 4 min |
-| Arise Coffee Roasters | Nakameguro | Coffee | 10:00-18:00 | 4.6 | Roasted beans for home | Nakameguro, 5 min |
-| Globe Specs | Daikanyama | Eyewear | 11:00-20:00 | 4.9 | Anne et Valentin / Vintage | Daikanyama, 5 min |
-</pre>
-</body>
-</html>
+<div class="card">
+<h3>The City Bakery</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 07:30-22:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> Pretzel Croissants</p>
+<p><strong>Station:</strong> Ginza, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=The%20City%20Bakery%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Senso-ji Temple</h3>
+<p><strong>Neighborhood:</strong> Asakusa | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 06:00-17:00 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Fortune drawing (Omikuji)</p>
+<p><strong>Station:</strong> Asakusa, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Senso-ji%20Temple%20Asakusa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Boulangerie l'Atelier de Meguro</h3>
+<p><strong>Neighborhood:</strong> Nakameguro | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.2/5</p>
+<p><strong>What to Try:</strong> Artisanal loafs</p>
+<p><strong>Station:</strong> Nakameguro, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Boulangerie%20l%27Atelier%20de%20Meguro%20Nakameguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>White Glass Coffee</h3>
+<p><strong>Neighborhood:</strong> Aoyama | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:00-20:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Coffee with chocolate desserts</p>
+<p><strong>Station:</strong> Omotesando, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=White%20Glass%20Coffee%20Aoyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>The Roastery by Nozy Coffee</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 10:00-20:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Espresso tonic and soft serve</p>
+<p><strong>Station:</strong> Shibuya, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=The%20Roastery%20by%20Nozy%20Coffee%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Nakano Broadway</h3>
+<p><strong>Neighborhood:</strong> Nakano | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Vintage watch/toy hunting</p>
+<p><strong>Station:</strong> Nakano, 2 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Nakano%20Broadway%20Nakano%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Tokyo National Museum</h3>
+<p><strong>Neighborhood:</strong> Ueno | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 09:30-17:00 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Japanese archaeology/art</p>
+<p><strong>Station:</strong> Ueno, 10 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Tokyo%20National%20Museum%20Ueno%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Deus Ex Machina</h3>
+<p><strong>Neighborhood:</strong> Harajuku | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 09:00-20:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Custom roast coffee</p>
+<p><strong>Station:</strong> Harajuku, 7 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Deus%20Ex%20Machina%20Harajuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Coffee High Five</h3>
+<p><strong>Neighborhood:</strong> Nakano | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Dark roast espresso</p>
+<p><strong>Station:</strong> Nakano, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Coffee%20High%20Five%20Nakano%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Sidewalk Stand</h3>
+<p><strong>Neighborhood:</strong> Nakameguro | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 09:00-21:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Hot sandwiches and latte</p>
+<p><strong>Station:</strong> Nakameguro, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Sidewalk%20Stand%20Nakameguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Blue Bottle Coffee Shinjuku</h3>
+<p><strong>Neighborhood:</strong> Shinjuku | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:00-21:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> New Orleans Iced Coffee</p>
+<p><strong>Station:</strong> Shinjuku, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Blue%20Bottle%20Coffee%20Shinjuku%20Shinjuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Beams Men Shibuya</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Curated lifestyle gear</p>
+<p><strong>Station:</strong> Shibuya, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Beams%20Men%20Shibuya%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Taro Okamoto Memorial Museum</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Modern Japanese art</p>
+<p><strong>Station:</strong> Omotesando, 7 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Taro%20Okamoto%20Memorial%20Museum%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Kameju</h3>
+<p><strong>Neighborhood:</strong> Asakusa | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 10:00-19:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Dorayaki</p>
+<p><strong>Station:</strong> Asakusa, 7 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Kameju%20Asakusa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Peltier Bakery</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 10:00-20:00 | <strong>Rating:</strong> 4.2/5</p>
+<p><strong>What to Try:</strong> French-style pastries</p>
+<p><strong>Station:</strong> Ginza, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Peltier%20Bakery%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Ginza Six Rooftop</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 07:00-23:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Sky garden views</p>
+<p><strong>Station:</strong> Ginza, 1 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Ginza%20Six%20Rooftop%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Boul'Ange</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 08:00-21:00 | <strong>Rating:</strong> 4.2/5</p>
+<p><strong>What to Try:</strong> Pistachio Croissants</p>
+<p><strong>Station:</strong> Ginza, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Boul%27Ange%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Sarutahiko Coffee</h3>
+<p><strong>Neighborhood:</strong> Ebisu | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:00-22:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Honey latte and seasonal blends</p>
+<p><strong>Station:</strong> Ebisu, 2 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Sarutahiko%20Coffee%20Ebisu%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Tsutaya Books (T-Site)</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Shopping</p>
+<p><strong>Hours:</strong> 07:00-23:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Art books and magazine collection</p>
+<p><strong>Station:</strong> Daikanyama, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Tsutaya%20Books%20%28T-Site%29%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Map Camera</h3>
+<p><strong>Neighborhood:</strong> Shinjuku | <strong>Category:</strong> Camera</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> Used Leica/Fujifilm</p>
+<p><strong>Station:</strong> Shinjuku, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Map%20Camera%20Shinjuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Coffee Elementary School</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 11:00-18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Educational tasting flights</p>
+<p><strong>Station:</strong> Daikanyama, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Coffee%20Elementary%20School%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Boul'Ange Harajuku</h3>
+<p><strong>Neighborhood:</strong> Harajuku | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 08:00-20:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> Croissant variations</p>
+<p><strong>Station:</strong> Harajuku, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Boul%27Ange%20Harajuku%20Harajuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Onibus Coffee</h3>
+<p><strong>Neighborhood:</strong> Nakameguro | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 09:00-18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Espresso by the tracks</p>
+<p><strong>Station:</strong> Nakameguro, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Onibus%20Coffee%20Nakameguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Unu Glanta</h3>
+<p><strong>Neighborhood:</strong> Shimokitazawa | <strong>Category:</strong> Jewelry</p>
+<p><strong>Hours:</strong> 12:00-20:00 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Custom handcrafted ring made on-site in 10 min</p>
+<p><strong>Station:</strong> Shimokitazawa, 1 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Unu%20Glanta%20Shimokitazawa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>A.P.C. Surplus Daikanyama</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 12:00-20:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> Archived French designs</p>
+<p><strong>Station:</strong> Daikanyama, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=A.P.C.%20Surplus%20Daikanyama%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Nezu Museum</h3>
+<p><strong>Neighborhood:</strong> Aoyama | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 10:00-17:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> Traditional garden and tea house</p>
+<p><strong>Station:</strong> Omotesando, 8 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Nezu%20Museum%20Aoyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Be a Good Neighbor</h3>
+<p><strong>Neighborhood:</strong> Sendagaya | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 09:00-18:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Hand-drip coffee and seasonal beans</p>
+<p><strong>Station:</strong> Kitasando, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Be%20a%20Good%20Neighbor%20Sendagaya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Matsuda Store (Matsuya)</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Heritage engraved metal frames</p>
+<p><strong>Station:</strong> Ginza, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Matsuda%20Store%20%28Matsuya%29%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Iron Coffee</h3>
+<p><strong>Neighborhood:</strong> Setagaya | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:30-18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Latte with almond milk</p>
+<p><strong>Station:</strong> Sangenjaya, 8 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Iron%20Coffee%20Setagaya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Brooklyn Roasting Company</h3>
+<p><strong>Neighborhood:</strong> Shimokitazawa | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 09:00-19:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Single origin drip</p>
+<p><strong>Station:</strong> Shimokitazawa, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Brooklyn%20Roasting%20Company%20Shimokitazawa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Hotel Claska Gallery</h3>
+<p><strong>Neighborhood:</strong> Meguro | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Japanese lifestyle goods</p>
+<p><strong>Station:</strong> Meguro, 8 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Hotel%20Claska%20Gallery%20Meguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Eyevan 7285</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Hexagonal frames</p>
+<p><strong>Station:</strong> Omotesando, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Eyevan%207285%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Switch Coffee Tokyo</h3>
+<p><strong>Neighborhood:</strong> Meguro | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Seasonal single-origin drip</p>
+<p><strong>Station:</strong> Meguro, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Switch%20Coffee%20Tokyo%20Meguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Eyevan Luxe Shibuya</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-21:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Limited luxury collections</p>
+<p><strong>Station:</strong> Shibuya, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Eyevan%20Luxe%20Shibuya%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Viron Shibuya</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 09:00-21:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Baguette Retro</p>
+<p><strong>Station:</strong> Shibuya, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Viron%20Shibuya%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Starbucks Reserve Printemps</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 07:30-22:30 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Reserve micro-blends</p>
+<p><strong>Station:</strong> Ginza, 2 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Starbucks%20Reserve%20Printemps%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>About Life Coffee Brewers</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:00-18:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Onibus bean pour-over</p>
+<p><strong>Station:</strong> Shibuya, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=About%20Life%20Coffee%20Brewers%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Shibuya Sky</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Sightseeing</p>
+<p><strong>Hours:</strong> 10:00-22:30 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Sunset views from the rooftop</p>
+<p><strong>Station:</strong> Shibuya, direct access</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Shibuya%20Sky%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Higuma Doughnuts x Coffee Wrights</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 11:00-18:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Plain doughnut and flat white</p>
+<p><strong>Station:</strong> Omotesando, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Higuma%20Doughnuts%20x%20Coffee%20Wrights%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Bonsai Coffee</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> Hand drip coffee</p>
+<p><strong>Station:</strong> Daikanyama, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Bonsai%20Coffee%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Blue Bottle Aoyama</h3>
+<p><strong>Neighborhood:</strong> Aoyama | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:00-19:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Seasonal pour-over</p>
+<p><strong>Station:</strong> Omotesando, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Blue%20Bottle%20Aoyama%20Aoyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Chora Eyewear</h3>
+<p><strong>Neighborhood:</strong> Nakameguro | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> Boutique curated brands</p>
+<p><strong>Station:</strong> Nakameguro, 7 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Chora%20Eyewear%20Nakameguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Mame-zono</h3>
+<p><strong>Neighborhood:</strong> Nakano | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 10:00-19:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> Kintsuba (bean cakes)</p>
+<p><strong>Station:</strong> Nakano, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Mame-zono%20Nakano%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Yard Coffee & Craft Chocolate</h3>
+<p><strong>Neighborhood:</strong> Tennoji | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Single-origin coffee and artisan chocolate</p>
+<p><strong>Station:</strong> Tennoji, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Yard%20Coffee%20%26%20Craft%20Chocolate%20Tennoji%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Traveler's Factory</h3>
+<p><strong>Neighborhood:</strong> Nakameguro | <strong>Category:</strong> Shopping</p>
+<p><strong>Hours:</strong> 12:00-20:00 (Closed Tue) | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Customizable leather traveler's notebooks</p>
+<p><strong>Station:</strong> Nakameguro, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Traveler%27s%20Factory%20Nakameguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Daily Chico</h3>
+<p><strong>Neighborhood:</strong> Nakano | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 10:00-20:00 | <strong>Rating:</strong> 4.2/5</p>
+<p><strong>What to Try:</strong> 8-layer soft serve</p>
+<p><strong>Station:</strong> Nakano, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Daily%20Chico%20Nakano%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Yodobashi Camera West</h3>
+<p><strong>Neighborhood:</strong> Shinjuku | <strong>Category:</strong> Camera</p>
+<p><strong>Hours:</strong> 09:30-22:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Camera accessories/straps</p>
+<p><strong>Station:</strong> Shinjuku, 2 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Yodobashi%20Camera%20West%20Shinjuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>SunnyHills</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Pineapple cake and tea (Kengo Kuma building)</p>
+<p><strong>Station:</strong> Omotesando, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=SunnyHills%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Blinc Vase</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 12:00-20:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Curated global eyewear</p>
+<p><strong>Station:</strong> Omotesando, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Blinc%20Vase%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Bear Pond Espresso</h3>
+<p><strong>Neighborhood:</strong> Shimokitazawa | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 11:00-17:00 | <strong>Rating:</strong> 4.2/5</p>
+<p><strong>What to Try:</strong> The "Angel Stain" Espresso</p>
+<p><strong>Station:</strong> Shimokitazawa, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Bear%20Pond%20Espresso%20Shimokitazawa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Streamer Coffee Company</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:00-20:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Streamer Latte (Latte Art)</p>
+<p><strong>Station:</strong> Shibuya, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Streamer%20Coffee%20Company%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Kamuro Eyewear</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Artistic colorful frames</p>
+<p><strong>Station:</strong> Ginza, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Kamuro%20Eyewear%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Light Up Coffee</h3>
+<p><strong>Neighborhood:</strong> Kichijoji | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Single-origin flight</p>
+<p><strong>Station:</strong> Kichijoji, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Light%20Up%20Coffee%20Kichijoji%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Little Nap Coffee Stand</h3>
+<p><strong>Neighborhood:</strong> Yoyogi | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 09:00-19:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Iced latte by Yoyogi Park</p>
+<p><strong>Station:</strong> Yoyogi-koen, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Little%20Nap%20Coffee%20Stand%20Yoyogi%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Koffee Mameya Kakeru</h3>
+<p><strong>Neighborhood:</strong> Kiyosumi-shirakawa | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> Coffee tasting course (Reservations req)</p>
+<p><strong>Station:</strong> Kiyosumi-shirakawa, 8 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Koffee%20Mameya%20Kakeru%20Kiyosumi-shirakawa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Glitch Coffee & Roasters</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 09:00-19:00 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Single origin pour-over</p>
+<p><strong>Station:</strong> Ginza, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Glitch%20Coffee%20%26%20Roasters%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Coffee Supreme Tokyo</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:00-18:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Flat white and donuts</p>
+<p><strong>Station:</strong> Shibuya, 8 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Coffee%20Supreme%20Tokyo%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Ghibli Museum</h3>
+<p><strong>Neighborhood:</strong> Kichijoji | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.9/5</p>
+<p><strong>What to Try:</strong> Film animation secrets — book tickets in advance</p>
+<p><strong>Station:</strong> Mitaka, 10 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Ghibli%20Museum%20Kichijoji%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Shirohige's Cream Puff Factory</h3>
+<p><strong>Neighborhood:</strong> Shimokitazawa | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 11:00-18:00 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> Totoro-shaped cream puffs</p>
+<p><strong>Station:</strong> Shimokitazawa, 8 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Shirohige%27s%20Cream%20Puff%20Factory%20Shimokitazawa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Sawamura Bakery</h3>
+<p><strong>Neighborhood:</strong> Shinjuku | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 07:00-22:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Rustic sourdough</p>
+<p><strong>Station:</strong> Shinjuku, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Sawamura%20Bakery%20Shinjuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Dominique Ansel Workshop</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 10:00-19:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> DKA (Dominique's Kouign Amann)</p>
+<p><strong>Station:</strong> Omotesando, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Dominique%20Ansel%20Workshop%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Found MUJI Aoyama</h3>
+<p><strong>Neighborhood:</strong> Aoyama | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Specialized lifestyle products</p>
+<p><strong>Station:</strong> Omotesando, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Found%20MUJI%20Aoyama%20Aoyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Turret Coffee</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 07:00-18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Turret Latte</p>
+<p><strong>Station:</strong> Ginza, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Turret%20Coffee%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>T-Site / Tsutaya Books</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 07:00-23:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> Photography books/Design magazines</p>
+<p><strong>Station:</strong> Daikanyama, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=T-Site%20/%20Tsutaya%20Books%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Masunaga 1905 (Ginza)</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> GMS series</p>
+<p><strong>Station:</strong> Ginza, 2 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Masunaga%201905%20%28Ginza%29%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Passage Coffee</h3>
+<p><strong>Neighborhood:</strong> Mita | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 07:30-19:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> AeroPress championship coffee</p>
+<p><strong>Station:</strong> Mita, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Passage%20Coffee%20Mita%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Matcha Passport</h3>
+<p><strong>Neighborhood:</strong> Shimokitazawa | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Matcha lattes and seasonal desserts</p>
+<p><strong>Station:</strong> Shimokitazawa, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Matcha%20Passport%20Shimokitazawa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Bunkaya Zakkaten</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Quirky Japanese souvenirs</p>
+<p><strong>Station:</strong> Omotesando, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Bunkaya%20Zakkaten%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Jins Shibuya</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-21:00 | <strong>Rating:</strong> 4.2/5</p>
+<p><strong>What to Try:</strong> Design collaborations</p>
+<p><strong>Station:</strong> Shibuya, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Jins%20Shibuya%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>999.9 Four Nines Spirit</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.7/5</p>
+<p><strong>What to Try:</strong> M-140 series; high-function hinges</p>
+<p><strong>Station:</strong> Ginza, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=999.9%20Four%20Nines%20Spirit%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Itoya Ginza</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Shopping</p>
+<p><strong>Hours:</strong> 10:00-20:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Custom notebook creation</p>
+<p><strong>Station:</strong> Ginza-itchome, 1 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Itoya%20Ginza%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Bonus Track</h3>
+<p><strong>Neighborhood:</strong> Shimokitazawa | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 12:00-20:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Indie shops and live music venue</p>
+<p><strong>Station:</strong> Shimokitazawa, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Bonus%20Track%20Shimokitazawa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Boulangerie Le Ressort</h3>
+<p><strong>Neighborhood:</strong> Kichijoji | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 11:00-19:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Pistachio stick</p>
+<p><strong>Station:</strong> Kichijoji, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Boulangerie%20Le%20Ressort%20Kichijoji%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Ameya Yokocho</h3>
+<p><strong>Neighborhood:</strong> Ueno | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 10:00-20:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> Street food market</p>
+<p><strong>Station:</strong> Ueno, 2 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Ameya%20Yokocho%20Ueno%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Shozo Coffee Store</h3>
+<p><strong>Neighborhood:</strong> Aoyama | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 09:30-18:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Scones and iced coffee</p>
+<p><strong>Station:</strong> Omotesando, 7 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Shozo%20Coffee%20Store%20Aoyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Center the Bakery</h3>
+<p><strong>Neighborhood:</strong> Ginza | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 09:00-18:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Shokupan tasting flight</p>
+<p><strong>Station:</strong> Ginza, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Center%20the%20Bakery%20Ginza%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Kitazawa Hachiman Shrine</h3>
+<p><strong>Neighborhood:</strong> Shimokitazawa | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 09:00-17:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Local shrine in residential streets</p>
+<p><strong>Station:</strong> Shimokitazawa, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Kitazawa%20Hachiman%20Shrine%20Shimokitazawa%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Meiji Jingu Shrine</h3>
+<p><strong>Neighborhood:</strong> Harajuku | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 05:00-18:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> Forest walk to main shrine</p>
+<p><strong>Station:</strong> Harajuku, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Meiji%20Jingu%20Shrine%20Harajuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Koffee Mameya</h3>
+<p><strong>Neighborhood:</strong> Aoyama | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> Bean consultation</p>
+<p><strong>Station:</strong> Omotesando, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Koffee%20Mameya%20Aoyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Princi</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 08:00-22:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Focaccia barese</p>
+<p><strong>Station:</strong> Daikanyama, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Princi%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Shinjuku Gyoen</h3>
+<p><strong>Neighborhood:</strong> Shinjuku | <strong>Category:</strong> Park</p>
+<p><strong>Hours:</strong> 09:00-16:00/18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Exploring the greenhouse</p>
+<p><strong>Station:</strong> Shinjuku-gyoemmae, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Shinjuku%20Gyoen%20Shinjuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Masunaga 1905</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> Chord series</p>
+<p><strong>Station:</strong> Omotesando, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Masunaga%201905%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Nikolai Bergmann Nomu</h3>
+<p><strong>Neighborhood:</strong> Harajuku | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 10:00-19:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Lunch among floral displays</p>
+<p><strong>Station:</strong> Harajuku, 8 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Nikolai%20Bergmann%20Nomu%20Harajuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Gontran Cherrier</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 07:30-20:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Curry bread</p>
+<p><strong>Station:</strong> Shibuya, 6 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Gontran%20Cherrier%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Globe Specs</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.9/5</p>
+<p><strong>What to Try:</strong> Anne et Valentin / Vintage</p>
+<p><strong>Station:</strong> Daikanyama, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Globe%20Specs%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Gotokuji Temple</h3>
+<p><strong>Neighborhood:</strong> Gotokuji | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 06:00-17:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Maneki-neko (lucky cat) statues</p>
+<p><strong>Station:</strong> Gotokuji, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Gotokuji%20Temple%20Gotokuji%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Kyu Asakura House</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Sightseeing</p>
+<p><strong>Hours:</strong> 10:00-18:00 (Tue-Sun) | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Taisho-era architecture and garden stroll</p>
+<p><strong>Station:</strong> Daikanyama, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Kyu%20Asakura%20House%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Traveler's Factory</h3>
+<p><strong>Neighborhood:</strong> Nakameguro | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 12:00-20:00 | <strong>Rating:</strong> 4.8/5</p>
+<p><strong>What to Try:</strong> Custom notebooks</p>
+<p><strong>Station:</strong> Nakameguro, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Traveler%27s%20Factory%20Nakameguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Miyashita Park</h3>
+<p><strong>Neighborhood:</strong> Shibuya | <strong>Category:</strong> Park</p>
+<p><strong>Hours:</strong> 08:00-23:00 | <strong>Rating:</strong> 4.3/5</p>
+<p><strong>What to Try:</strong> Rooftop bouldering or skating</p>
+<p><strong>Station:</strong> Shibuya, 3 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Miyashita%20Park%20Shibuya%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Yanaka Ginza</h3>
+<p><strong>Neighborhood:</strong> Yanaka | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.5/5</p>
+<p><strong>What to Try:</strong> Traditional street snacks</p>
+<p><strong>Station:</strong> Nippori, 10 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Yanaka%20Ginza%20Yanaka%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Kayaba Coffee</h3>
+<p><strong>Neighborhood:</strong> Yanaka | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 08:00-18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Egg sandwich</p>
+<p><strong>Station:</strong> Nippori, 8 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Kayaba%20Coffee%20Yanaka%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Verve Coffee Roasters</h3>
+<p><strong>Neighborhood:</strong> Shinjuku | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 07:00-22:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Nitro Flash Brew</p>
+<p><strong>Station:</strong> Shinjuku, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Verve%20Coffee%20Roasters%20Shinjuku%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Spiral Market</h3>
+<p><strong>Neighborhood:</strong> Aoyama | <strong>Category:</strong> Sight</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> Modern Japanese stationery/gifts</p>
+<p><strong>Station:</strong> Omotesando, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Spiral%20Market%20Aoyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Bread, Espresso &</h3>
+<p><strong>Neighborhood:</strong> Omotesando | <strong>Category:</strong> Bakery</p>
+<p><strong>Hours:</strong> 08:00-19:00 | <strong>Rating:</strong> 4.4/5</p>
+<p><strong>What to Try:</strong> French toast</p>
+<p><strong>Station:</strong> Omotesando, 4 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Bread%2C%20Espresso%20%26%20Omotesando%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Arise Coffee Roasters</h3>
+<p><strong>Neighborhood:</strong> Nakameguro | <strong>Category:</strong> Coffee</p>
+<p><strong>Hours:</strong> 10:00-18:00 | <strong>Rating:</strong> 4.6/5</p>
+<p><strong>What to Try:</strong> Roasted beans for home</p>
+<p><strong>Station:</strong> Nakameguro, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Arise%20Coffee%20Roasters%20Nakameguro%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+<div class="card">
+<h3>Globe Specs</h3>
+<p><strong>Neighborhood:</strong> Daikanyama | <strong>Category:</strong> Eyewear</p>
+<p><strong>Hours:</strong> 11:00-20:00 | <strong>Rating:</strong> 4.9/5</p>
+<p><strong>What to Try:</strong> Anne et Valentin / Vintage</p>
+<p><strong>Station:</strong> Daikanyama, 5 min</p>
+<p><a href="https://www.google.com/maps/search/?api=1&query=Globe%20Specs%20Daikanyama%20Tokyo%20Japan" target="_blank">📍 Open in Google Maps</a></p>
+</div>
+</body></html>
