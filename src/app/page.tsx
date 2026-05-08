@@ -57,17 +57,17 @@ export default function ChatPage() {
   };
 
   return (
-    <main className="flex flex-col h-screen max-w-4xl mx-auto" data-testid="chat-page">
-      <header className="p-4 border-b bg-white">
+    <main className="flex flex-col h-[100dvh] max-w-4xl mx-auto" data-testid="chat-page">
+      <header className="shrink-0 p-4 border-b bg-white">
         <h1 className="text-xl font-bold">🗼 Conan — Tokyo Travel Guide</h1>
         <p className="text-sm text-gray-500">Ask me about spots, plan your day, or manage your list</p>
       </header>
 
-      <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-0">
         <ChatMessages messages={messages} isLoading={isLoading} />
 
         {messages.length === 0 && (
-          <div className="px-4 pb-2">
+          <div className="shrink-0 px-4 pb-2">
             <QuickActions suggestions={INITIAL_SUGGESTIONS} onSelect={sendMessage} />
           </div>
         )}
