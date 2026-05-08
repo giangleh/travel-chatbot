@@ -63,7 +63,7 @@ export default function ChatPage() {
         <p className="text-sm text-gray-500">Ask me about spots, plan your day, or manage your list</p>
       </header>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         <ChatMessages messages={messages} isLoading={isLoading} />
 
         {messages.length === 0 && (
@@ -71,14 +71,14 @@ export default function ChatPage() {
             <QuickActions suggestions={INITIAL_SUGGESTIONS} onSelect={sendMessage} />
           </div>
         )}
-
-        <ChatInput
-          input={input}
-          onChange={(e) => setInput(e.target.value)}
-          onSubmit={handleSubmit}
-          isLoading={isLoading}
-        />
       </div>
+
+      <ChatInput
+        input={input}
+        onChange={(e) => setInput(e.target.value)}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
     </main>
   );
 }

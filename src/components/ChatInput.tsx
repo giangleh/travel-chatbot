@@ -11,7 +11,7 @@ interface ChatInputProps {
 
 export function ChatInput({ input, onChange, onSubmit, isLoading }: ChatInputProps) {
   return (
-    <form onSubmit={onSubmit} className="p-4 border-t bg-white" data-testid="chat-input-form">
+    <form onSubmit={onSubmit} className="shrink-0 p-4 border-t bg-white" data-testid="chat-input-form">
       <div className="flex gap-2">
         <input
           type="text"
